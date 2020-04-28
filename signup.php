@@ -56,8 +56,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     $sql = "INSERT INTO users (username, password, email, confirmNum) VALUES (?, ?, ?, ?)";
 
-    if($stmt)
+    if($stmt = $mysqli->prepare($sql)){
+      $stmt->bind_param("ssss", $param_username, $param_password, $param_email, $param_confirmNum);
+
+      $param_username = $username;
+      $param_email = $email;
+      $param_confirmNum = rand(10000, 99999);
+      $param_password = password_hash($password, PASSWORD_DEFAULT);
+
+      if($stmt->execute()){
+        $_SESSION["confirmNum"] = $param_confirmNum;
+        header("location:");
+      }else{
+        echo "Something went wrong. Please try again later.";
+      }
+    }
+    $stmt->close();
   }
+  $mysqli->close();
 }
 
 ?>
