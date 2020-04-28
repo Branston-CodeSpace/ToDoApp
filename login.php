@@ -9,7 +9,24 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
 
 require_once "connect.php";
 
+$username = $password = "";
+$username_error = $password_error = "";
 
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+  if(empty(trim($_POST["username"]))){
+    $username_error = "Please enter username.";
+  }else{
+    $username = trim($_POST["username"]);
+  }
+
+  if(empty(trim($_POST["password"]))){
+    $password_error = "Please enter your password.";
+  }else{
+    $password = trim($_POST["password"]);
+  }
+
+  
+}
 
 ?>
 
