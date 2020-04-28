@@ -111,7 +111,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
       }
 
-      echo htmlspecialchars($_SERVER["PHP_SELF"]);
+    
     ?>
 
     
