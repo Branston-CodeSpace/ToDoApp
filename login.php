@@ -25,7 +25,43 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $password = trim($_POST["password"]);
   }
 
-  
+  if(empty($username_error) && empty($password_error)){
+    $sql = "SELECT user_id, username, password, confirm FROM users WHERE username = ?";
+
+    if($stmt = $mysqli->prepare($sql)){
+      $stmt->bind_param("s", $param_username);
+      $param_username = $username;
+
+      if($stmt->execute()){
+        $stmt->store_result();
+
+        if($stmt->num_rows == 1){
+          $stmt->bind_result($id, $username, $hashed_password, $confirm);
+
+          if($stmt->fetch()){
+            if(password_verify($password, $hashed_password) && $confirm == 1){
+
+              session_start();
+
+              $_SESSION["loggedin"] = true;
+              $_SESSION["id"] = $id;
+              $_SESSION["username"] = $username;
+
+              header("location: index.php");
+            }else{
+              $password_error = "The password you entered is not valid.";
+            }
+          }
+        }else{
+          $username_error = "No account found with that username.";
+        }
+      }else{
+        echo "Something went wrong. Please try again later.";
+      }
+    }
+    $stmt->close();
+  }
+  $mysqli->close();
 }
 
 ?>
