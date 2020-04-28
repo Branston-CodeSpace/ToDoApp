@@ -25,37 +25,15 @@ if (!$conn){
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <!--CSS-->
+    <link rel="stylesheet" href="css/style.php">
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
 
-
-    <h3>Sign up</h3>
-
-    <form action=<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?> method="post">
-    <label>Username:</label><br>
-    <input type="text" name="username"><br>
-    <label>Password</label><br>
-    <input type="password" name="password"><br>
-    <label>Repeat Password</label><br>
-    <input type="password" name="password2"><br>
-    <input type="submit" value="Sign up">
-    </form>
-
-    <?php
-
-      if($_POST){
-        if($_POST['password'] !== $_POST['password2']){
-          echo "<p>Your password's do not match</p>";
-        }
-      }
-
-      echo htmlspecialchars($_SERVER["PHP_SELF"]);
-    ?>
-
-    </form>
-
+  
       
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
